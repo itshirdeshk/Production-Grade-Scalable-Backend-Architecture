@@ -1,0 +1,29 @@
+{"level":"info","message":"Server is running on port 8080","timestamp":"2025-06-16T08:51:07.113Z"}
+{"level":"info","message":"Server is running on port 8080","timestamp":"2025-06-16T12:23:52.842Z"}
+{"level":"info","message":"Server is running on port 8080","timestamp":"2025-06-16T12:26:40.116Z"}
+{"level":"info","message":"Server is running on port 8080","timestamp":"2025-06-16T12:29:12.193Z"}
+{"level":"info","message":"Server is running on port 8080","timestamp":"2025-06-16T12:29:33.595Z"}
+{"level":"info","message":"Server is running on port 8080","timestamp":"2025-06-16T12:40:02.212Z"}
+{"level":"info","message":"Server is running on port 8080","timestamp":"2025-06-16T12:42:25.957Z"}
+{"level":"info","message":"Server is running on port 8080","timestamp":"2025-06-16T12:42:46.748Z"}
+{"level":"debug","message":"Database URI:","timestamp":"2025-06-16T12:44:27.277Z"}
+{"level":"info","message":"Server is running on port 8080","timestamp":"2025-06-16T12:44:28.303Z"}
+{"level":"debug","message":"Mongoose deafult connection is open tomongodb://localhost:27017/todo","timestamp":"2025-06-16T12:44:28.333Z"}
+{"level":"info","message":"Mongoose Connection Established","timestamp":"2025-06-16T12:44:28.336Z"}
+{"level":"debug","message":"Database URI:","timestamp":"2025-06-16T12:44:50.607Z"}
+{"level":"info","message":"Server is running on port 8080","timestamp":"2025-06-16T12:44:50.893Z"}
+{"level":"debug","message":"Mongoose deafult connection is open tomongodb://localhost:27017/todo","timestamp":"2025-06-16T12:44:50.914Z"}
+{"level":"info","message":"Mongoose Connection Established","timestamp":"2025-06-16T12:44:50.917Z"}
+{"level":"debug","message":"Database URI: ","timestamp":"2025-06-16T12:44:55.227Z"}
+{"level":"info","message":"Server is running on port 8080","timestamp":"2025-06-16T12:44:55.445Z"}
+{"level":"debug","message":"Mongoose deafult connection is open tomongodb://localhost:27017/todo","timestamp":"2025-06-16T12:44:55.464Z"}
+{"level":"info","message":"Mongoose Connection Established","timestamp":"2025-06-16T12:44:55.466Z"}
+{"level":"debug","message":"Database URI: ","timestamp":"2025-06-16T12:45:03.253Z"}
+{"level":"info","message":"Server is running on port 8080","timestamp":"2025-06-16T12:45:03.532Z"}
+{"level":"debug","message":"Mongoose deafult connection is open to mongodb://localhost:27017/todo","timestamp":"2025-06-16T12:45:03.559Z"}
+{"level":"info","message":"Mongoose Connection Established","timestamp":"2025-06-16T12:45:03.563Z"}
+{"level":"debug","message":"Database URI: ","timestamp":"2025-06-16T12:46:48.110Z"}
+{"level":"info","message":"Server is running on port 8080","timestamp":"2025-06-16T12:46:49.073Z"}
+{"level":"debug","message":"Mongoose deafult connection is open to mongodb://localhost:27017/todo","timestamp":"2025-06-16T12:46:49.094Z"}
+{"level":"info","message":"Mongoose Connection Established","timestamp":"2025-06-16T12:46:49.098Z"}
+{"level":"debug","message":"Mongoose default connection is disconnected","timestamp":"2025-06-16T13:26:48.453Z"}
