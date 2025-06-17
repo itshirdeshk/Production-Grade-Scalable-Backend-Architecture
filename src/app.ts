@@ -30,27 +30,30 @@ app.use("/api/users", userRoutes)
 app.use("/api/todo", todoRoutes)
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    if (err instanceof ApiError) {
-        ApiError.handle(err, res);
-        if (err.type === ErrorType.INTERNAL_SERVER_ERROR) {
-            Logger.error(
-                `500 - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`
-            )
-        } else {
-            Logger.error(
-                `500 - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`
-            )
-        }
-
-        Logger.error(err.stack || "No stack trace available")
-
-        if (environment === 'development') {
-            res.status(500).send({
-                message: err.message, stack: err.stack
-            })
-        }
+    // If the headers have already been sent, let Express handle it
+    if (res.headersSent) {
+        return next(err);
     }
-    ApiError.handle(new InternalServerError(), res);
+    
+    if (err instanceof ApiError) {
+        // Log the error details
+        const errType = err.type === ErrorType.INTERNAL_SERVER_ERROR ? '500' : err.statusCode;
+        Logger.error(
+            `${errType} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`
+        );
+        
+        Logger.error(err.stack || "No stack trace available");
+        
+        // Send the response once
+        return ApiError.handle(err, res);
+    }
+    
+    // For non-ApiError types, convert to Internal Server Error and handle
+    const internalError = new InternalServerError(err.message || 'Something went wrong');
+    Logger.error(`500 - ${internalError.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+    Logger.error(err.stack || "No stack trace available");
+    
+    return ApiError.handle(internalError, res);
 })
 
 export default app;

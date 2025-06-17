@@ -1,7 +1,7 @@
 import asyncHandler from "express-async-handler"
 import Todo from "../models/todoModel"
 import { ProtectedRequest } from "../../types/app-request"
-import { Response } from "express"
+import { Request, Response } from "express"
 
 const createTodo = asyncHandler(async (req: ProtectedRequest, res: Response) => {
   const { title, description } = req.body
@@ -17,10 +17,10 @@ const createTodo = asyncHandler(async (req: ProtectedRequest, res: Response) => 
   res.status(201).json({ title, description })
 })
 
-const getTodos = asyncHandler(async (req: ProtectedRequest, res: Response) => {
-  const user = req.user
+const getTodos = asyncHandler(async (req: Request, res: Response) => {
+  // const user = req.user
   const todos = await Todo.find({
-    user: user,
+    // user: user,
   })
   res.json(todos)
 })

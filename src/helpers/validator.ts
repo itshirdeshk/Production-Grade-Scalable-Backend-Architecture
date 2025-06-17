@@ -12,11 +12,20 @@ export enum ValidationSource {
 const validateRequest = (schema: ZodSchema, source: ValidationSource = ValidationSource.BODY) => {
     return (req: Request, res: Response, next: NextFunction) => {
         try {
-            const data = schema.parse(req[source]);
-            Object.assign(req[source], data);
+            // For headers, we need to handle them differently since they're not a simple object
+            let dataToValidate = req[source];
+            
+            // Ensure we don't modify the request object in a way that would break it
+            const data = schema.parse(dataToValidate);
+            
+            // For headers, we don't want to assign back to headers as it might overwrite headers
+            if (source !== ValidationSource.HEADERS) {
+                Object.assign(req[source], data);
+            }
+            
             next();
         } catch (err) {
-            if (err instanceof ZodError) {
+            if (err instanceof ZodError) {                
                 const message = err.errors.map(error => error.message).join(", ");
                 return next(new BadRequestError(`Validation Error: ${message}`));
             }
