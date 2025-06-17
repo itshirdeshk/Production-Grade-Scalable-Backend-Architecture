@@ -18,3 +18,12 @@ export const db = {
 }
 
 export const corsUrl = process.env.CORS_URL
+
+export const tokenInfo = {
+  accessTokenValidity: parseInt(process.env.ACCESS_TOKEN_VALIDITY_SEC ?? "30"), // 1 hour
+  refreshTokenValidity: parseInt(process.env.REFRESH_TOKEN_VALIDITY_SEC ?? "86400"), // 1 day
+  issuer: process.env.TOKEN_ISSUER ?? "TodoApp",
+  audience: process.env.TOKEN_AUDIENCE ?? "TodoAppUsers",
+  secret: process.env.TOKEN_SECRET ?? "",
+  algorithm: process.env.TOKEN_ALGORITHM ?? "HS256",
+}
