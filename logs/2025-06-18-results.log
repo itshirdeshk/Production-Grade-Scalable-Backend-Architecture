@@ -1,0 +1,2 @@
+{"level":"debug","message":"Mongoose default connection is disconnected","timestamp":"2025-06-18T10:34:22.260Z"}
+{"level":"debug","message":"Mongoose deafult connection is open to mongodb://localhost:27017/todo","timestamp":"2025-06-18T10:34:32.843Z"}

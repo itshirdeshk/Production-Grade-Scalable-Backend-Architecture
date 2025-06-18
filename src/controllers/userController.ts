@@ -11,6 +11,8 @@ import { createTokens, validateTokenData } from "../auth/utils"
 import { environment, tokenInfo } from "../config"
 import { KeyStoreModel } from "../models/KeyStoreModel"
 import JWT from "../core/JWT"
+import getRole from "./roleController"
+import { RoleCode } from "../models/roleModel"
 
 const loginUser = asyncHandler(async (req: ProtectedRequest, res: Response) => {
   const { email, password } = req.body
@@ -64,7 +66,7 @@ const registerUser = asyncHandler(async (req: ProtectedRequest, res: Response) =
     throw new Error("User already Exists")
   }
 
-  const user = await User.create({ name, email, password })
+  const user = await User.create({ name, email, password, roles: [await getRole(RoleCode.USER)] })
 
   if (user) {
     res.status(201)
