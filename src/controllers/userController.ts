@@ -1,7 +1,6 @@
 import User from "../models/userModel"
-import asyncHandler from "express-async-handler"
 import { ProtectedRequest } from "../../types/app-request"
-import { Response } from "express"
+import { Request, Response } from "express"
 import mongoose, { Types } from "mongoose"
 import { userLoginSchema } from "../routes/userSchema"
 import { BadRequestError } from "../core/CustomError"
@@ -9,10 +8,11 @@ import crypto from "crypto"
 import { createKeys } from "./keyStoreController"
 import { createTokens, validateTokenData } from "../auth/utils"
 import { environment, tokenInfo } from "../config"
-import { KeyStoreModel } from "../models/KeyStoreModel"
+import { KeyStoreModel } from "../models/keyStoreModel"
 import JWT from "../core/JWT"
 import getRole from "./roleController"
 import { RoleCode } from "../models/roleModel"
+import asyncHandler from "../helpers/asyncHandler"
 
 const loginUser = asyncHandler(async (req: ProtectedRequest, res: Response) => {
   const { email, password } = req.body
@@ -56,28 +56,55 @@ const loginUser = asyncHandler(async (req: ProtectedRequest, res: Response) => {
   }
 })
 
-const registerUser = asyncHandler(async (req: ProtectedRequest, res: Response) => {
-  const { name, email, password } = req.body;
+const registerUser = asyncHandler(async (req: Request, res: Response) => {
+  try {
+    const { name, email, password } = req.body
 
-  const userExists = await User.findOne({ email })
+    const userExists = await User.findOne({ email })
 
-  if (userExists) {
-    res.status(400)
-    throw new Error("User already Exists")
-  }
+    if (userExists) {
+      res.status(400).json({
+        message: "User already exists",
+      })
+      return
+    }
 
-  const user = await User.create({ name, email, password, roles: [await getRole(RoleCode.USER)] })
-
-  if (user) {
-    res.status(201)
-    res.json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
+    const user = await User.create({
+      name,
+      email,
+      password,
+      roles: [await getRole(RoleCode.USER)],
     })
-  } else {
-    res.status(400)
-    throw new Error("Invalid User Credentials")
+
+    if (user) {
+      const accessTokenKey = crypto.randomBytes(64).toString("hex")
+      const refreshTokenKey = crypto.randomBytes(64).toString("hex")
+      await createKeys(user, accessTokenKey, refreshTokenKey)
+      const tokens = await createTokens(user, accessTokenKey, refreshTokenKey)
+
+      res.cookie("accessToken", tokens.accessToken, {
+        httpOnly: true,
+        secure: environment === "production",
+        sameSite: "strict",
+        maxAge: 24 * 60 * 60 * 1000, //ms
+      })
+      res.cookie("refreshToken", tokens.refreshToken, {
+        httpOnly: true,
+        secure: environment === "production",
+        sameSite: "strict",
+        maxAge: 30 * 24 * 60 * 60 * 1000, //ms
+      })
+      res.status(201).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+      })
+    } else {
+      throw new BadRequestError("Invalid user credentials")
+    }
+  } catch (error) {
+    console.error(error)
+    res.status(500).json({ message: "Internal server error" })
   }
 })
 

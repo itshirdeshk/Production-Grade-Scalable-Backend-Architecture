@@ -1,7 +1,7 @@
 import { Request } from "express";
-import ApiKeyDoc from "../models/ApiKeyModel";
+import ApiKeyDoc from "../models/apiKeyModel";
 import { UserDoc } from "../models/userModel";
-import KeyStoreDoc from "../models/KeyStoreModel";
+import KeyStoreDoc from "../models/keyStoreModel";
 import { RoleCode } from "../models/roleModel";
 
 declare interface PublicRequest extends Request {

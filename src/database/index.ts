@@ -1,6 +1,6 @@
 import mongoose, { mongo } from "mongoose"
 import Logger from "../core/Logger"
-import { db } from "../config";
+import { db, environment } from "../config";
 
 const dbURI = `mongodb://localhost:27017/${db.name}`
 // const dbURI = `mongodb://${db.user}:${encodeURIComponent(db.password)}@${db.host}:${db.port}/${db.name}`
@@ -21,8 +21,8 @@ function setRunValidators() {
 
 mongoose.set("strictQuery", true);
 
-mongoose
-  .plugin(((schema: any) => {
+if (environment !== "test") {
+  mongoose.plugin(((schema: any) => {
     schema.pre("findOneAndUpdate", setRunValidators);
     schema.pre("updateMany", setRunValidators);
     schema.pre("updateOne", setRunValidators);
@@ -36,6 +36,7 @@ mongoose
     Logger.info("Mongoose Connection Error: ", err);
     Logger.error(err);
   });
+}
 
 mongoose.connection.on("connected", () => {
   Logger.debug("Mongoose deafult connection is open to " + dbURI);

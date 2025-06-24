@@ -8,7 +8,7 @@ import {
 import { protect } from "../middleware/authMiddleware"
 import apiKey from "../auth/apiKey"
 import permission from "../helpers/permission"
-import { Permission } from "../models/ApiKeyModel"
+import { Permission } from "../models/apiKeyModel"
 import authentication from "../auth/authentication"
 import role from "../helpers/role"
 import { RoleCode } from "../models/roleModel"

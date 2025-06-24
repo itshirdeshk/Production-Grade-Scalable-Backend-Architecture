@@ -6,7 +6,7 @@ import { tokenInfo } from "../config";
 import { Types } from "mongoose";
 import User from "../models/userModel";
 import { BadRequestError, TokenExpiredError } from "../core/CustomError";
-import { KeyStoreModel } from "../models/KeyStoreModel";
+import { KeyStoreModel } from "../models/keyStoreModel";
 import asyncHandler from "../helpers/asyncHandler";
 
 const router = express.Router();

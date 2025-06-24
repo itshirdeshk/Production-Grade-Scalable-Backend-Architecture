@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "main": "server.js",
   "scripts": {
-    "start": "node dist/server.js",
-    "dev": "tsc-watch --onSuccess \"node dist/server.js\"",
+    "start": "node dist/src/server.js",
+    "dev": "tsc-watch --onSuccess \"node dist/src/server.js\"",
+    "test": "vitest --run",
     "build": "tsc",
     "create:apikey": "node dist/database/seedApiKey.js"
   },
@@ -34,6 +35,8 @@
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^24.0.1",
+    "@types/supertest": "^6.0.3",
+    "mongodb-memory-server": "^10.1.4",
     "nodemon": "^3.1.7",
     "supertest": "^7.1.1",
     "vitest": "^3.2.4"

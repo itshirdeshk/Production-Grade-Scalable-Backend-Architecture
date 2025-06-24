@@ -1,4 +1,4 @@
-import { ApiKeyModel, Permission } from '../models/ApiKeyModel';
+import { ApiKeyModel, Permission } from '../models/apiKeyModel';
 import Logger from '../core/Logger';
 import crypto from 'crypto';
 import mongoose from 'mongoose';
