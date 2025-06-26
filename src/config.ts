@@ -27,3 +27,13 @@ export const tokenInfo = {
   secret: process.env.TOKEN_SECRET ?? "",
   algorithm: process.env.TOKEN_ALGORITHM ?? "HS256",
 }
+
+export const redis = {
+  host: process.env.REDIS_HOST || "localhost",
+  port: process.env.REDIS_PORT || "6379",
+  password: process.env.REDIS_PASSWORD || "password",
+}
+
+export const caching = {
+  contentCacheDuration: process.env.CONTENT_CACHE_DURATION_MILLIS ?? "6000000"
+}
