@@ -3,12 +3,13 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 import { corsUrl, environment } from "./config"
 import "./database/index"
-import "./cache/index"
+// import "./cache/index"
 import userRoutes from "./routes/userRoutes"
 import todoRoutes from "./routes/todoRoutes"
 import { ApiError, ErrorType } from "./core/ApiError"
 import Logger from "./core/Logger"
 import { InternalServerError } from "./core/CustomError"
+import swagger from "./swagger"
 
 export const app = express()
 
@@ -29,6 +30,7 @@ app.get("/", (req: Request, res: Response) => {
 
 app.use("/api/users", userRoutes)
 app.use("/api/todo", todoRoutes)
+app.use("/api-docs", swagger)
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     // If the headers have already been sent, let Express handle it
